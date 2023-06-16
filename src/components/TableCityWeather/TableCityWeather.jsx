@@ -7,6 +7,8 @@ const TableCityWeather = ({city}) => {
         {temperature: "15", windDirection: "E", windSpeed: "3", pressure: "1011"},
         {temperature: "20", windDirection: "S", windSpeed: "4", pressure: "1012"},
         {temperature: "20", windDirection: "S", windSpeed: "4", pressure: "1012"},
+        {temperature: "20", windDirection: "S", windSpeed: "4", pressure: "1012"},
+        {temperature: "20", windDirection: "S", windSpeed: "4", pressure: "1012"},
     ]);
     const [editMode, setEditMode] = useState(false);
     const [editIndex, setEditIndex] = useState(null);
@@ -34,49 +36,60 @@ const TableCityWeather = ({city}) => {
         }
     };
 
+    const handleCancel = () => { // функция для обработки события отмены
+        setEditMode(false);
+        setEditedData(null);
+        setEditIndex(null);
+    };
+
     return (
         <div>
             <h3 className="leaders__header">Погода в ..............</h3>
 
-            <div className="leaders-table__wrapper">
-                <table className="leaders-table">
+            <div className="table__wrapper">
+                <table className="table" style={{ borderSpacing: '15px' }}>
                     <thead>
                     <tr>
                         <th></th>
-                        <th className="leaders-table__head">Температура воздуха</th>
-                        <th className="leaders-table__head">Направление ветра</th>
-                        <th className="leaders-table__head">Скорость ветра</th>
-                        <th className="leaders-table__head">Атмосферное давление</th>
-                        <th className="leaders-table__head">Действия</th>
+                        <th className="table__head">Температура воздуха</th>
+                        <th className="table__head">Направление ветра</th>
+                        <th className="table__head">Скорость ветра</th>
+                        <th className="table__head">Атмосферное давление</th>
+                        <th className="table__head">Действия</th>
                     </tr>
                     </thead>
 
                     <tbody>
                     {weather.map((data, index) => (
-                        <tr key={index}>
-                            <td className='leaders-table__cell'>{index + 1}</td>
+                        <tr key={index} className="table_tr">
+                            <td >{index + 1}</td>
                             {editMode && editIndex === index ? (
                                 <>
-                                    <td className='leaders-table__cell'><input type='text' value={editedData.temperature} onChange={(e) => setEditedData({...editedData, temperature: e.target.value})} /></td>
-                                    <td className='leaders-table__cell'><input type='text' value={editedData.windDirection} onChange={(e) => setEditedData({...editedData, windDirection: e.target.value})} /></td>
-                                    <td className='leaders-table__cell'><input type='text' value={editedData.windSpeed} onChange={(e) => setEditedData({...editedData, windSpeed: e.target.value})} /></td>
-                                    <td className='leaders-table__cell'><input type='text' value={editedData.pressure} onChange={(e) => setEditedData({...editedData, pressure: e.target.value})} /></td>
+                                    <td ><input className='inputWhite' type='text' value={editedData.temperature} onChange={(e) => setEditedData({...editedData, temperature: e.target.value})} /></td>
+                                    <td ><input className='inputWhite' type='text' value={editedData.windDirection} onChange={(e) => setEditedData({...editedData, windDirection: e.target.value})} /></td>
+                                    <td ><input className='inputWhite' type='text' value={editedData.windSpeed} onChange={(e) => setEditedData({...editedData, windSpeed: e.target.value})} /></td>
+                                    <td ><input className='inputWhite' type='text' value={editedData.pressure} onChange={(e) => setEditedData({...editedData, pressure: e.target.value})} /></td>
                                 </>
                             ) : (
                                 <>
-                                    <td className='leaders-table__cell'>{data.temperature}</td>
-                                    <td className='leaders-table__cell'>{data.windDirection}</td>
-                                    <td className='leaders-table__cell'>{data.windSpeed}</td>
-                                    <td className='leaders-table__cell'>{data.pressure}</td>
+                                    <td className='table__cell'>{data.temperature}</td>
+                                    <td className='table__cell'>{data.windDirection}</td>
+                                    <td className='table__cell'>{data.windSpeed}</td>
+                                    <td className='table__cell'>{data.pressure}</td>
                                 </>
                             )}
-                            <td className='leaders-table__cellAction'>
+                            <td className='table__cellAction'>
                                 {editMode && editIndex === index ? (
-                                    <button onClick={handleSave} className="btnSave">Сохранить</button>
+                                    <>
+                                        <button onClick={handleSave} className="btnSave">Сохранить</button>
+                                        <button onClick={handleCancel} className="btnCancel">Отменить</button>
+                                    </>
                                 ) : (
-                                    <button onClick={() => handleEdit(index)} className="btnEdit">Редактировать</button>
+                                    <>
+                                        <button onClick={() => handleEdit(index)} className="btnEdit">Редактировать</button>
+                                        <button onClick={() => handleDelete(index)} className="btnDelete">Удалить</button>
+                                    </>
                                 )}
-                                <button onClick={() => handleDelete(index)} className="btnDelete">Удалить</button>
                             </td>
                         </tr>
                     ))}
