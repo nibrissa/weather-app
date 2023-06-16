@@ -1,0 +1,93 @@
+.backgroundWrapper {
+  background-color: #C6D8FF;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5em 4em;
+}
+
+.header__title {
+  color: white;
+}
+
+.content__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.content {
+  background-color: white;
+  height: 70vh;
+  width: 85%;
+  border-radius: 1em;
+  padding: 2em;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  z-index: 2;
+  position: relative;
+}
+
+.contentWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.cloud__img,
+.cloudRain__img,
+.moon__img,
+.sunRain__img,
+.sunCloud__img,
+.umbrella__img,
+.sun__img {
+  position: absolute;
+  z-index: 1;
+  width: 10em;
+}
+
+.cloud__img {
+  top: 0%;
+  right: 29%;
+}
+
+.cloudRain__img {
+  top: 9%;
+  left: 2%;
+}
+
+.moon__img {
+  top: 4%;
+  left: 83%;
+}
+
+.sunRain__img {
+  bottom: -3%;
+  right: 90%;
+}
+
+.sunCloud__img {
+  bottom: -9%;
+  left: 90%;
+}
+
+.umbrella__img {
+  bottom: 40%;
+  left: 90%;
+}
+
+.sun__img {
+  bottom: 78%;
+  left: 26%;
+}/*# sourceMappingURL=layout.css.map */

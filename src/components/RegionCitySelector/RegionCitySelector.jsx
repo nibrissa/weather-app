@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import data from './../../state/regionsAndCities';
 import TableCityWeather from "../TableCityWeather/TableCityWeather";
 import './RegionCitySelector.sass'
-const RegionCitySelector = () => {
+const RegionCitySelector = ({add}) => {
     const [regions] = useState(data.regions);
     const [selectedRegion, setSelectedRegion] = useState("");
     const [cities, setCities] = useState([]);
@@ -18,6 +18,7 @@ const RegionCitySelector = () => {
 
     return (
         <div className='selectorWrapper'>
+            <div></div>
             <label>
                 Выберите регион:
                 <select className='selector' value={selectedRegion} onChange={e => setSelectedRegion(e.target.value)}>
@@ -38,7 +39,16 @@ const RegionCitySelector = () => {
                     </select>
                 </label>
             )}
+
+<div id="myModal" class="modal">
+
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+  </div>
             {selectedCity && <TableCityWeather city={selectedCity}/>}
+    <button id="myBtn">Open Modal</button>
         </div>
     );
 };

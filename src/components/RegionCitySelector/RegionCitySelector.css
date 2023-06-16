@@ -1,0 +1,63 @@
+.selectorWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selector {
+  box-sizing: border-box;
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 0.5em;
+  padding: 0.8em;
+  width: 35%;
+  margin: 0 1em;
+}
+.selector:focus {
+  outline: none;
+}
+.selector::-moz-placeholder {
+  color: blue;
+}
+.selector::placeholder {
+  color: blue;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#myBtn {
+  color: red;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 21px;
+  border: 19px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}/*# sourceMappingURL=RegionCitySelector.css.map */

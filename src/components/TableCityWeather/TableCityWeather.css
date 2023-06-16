@@ -1,0 +1,83 @@
+.table {
+  width: 100%;
+  text-align: center;
+  padding-right: 1em;
+}
+
+.leaders__header {
+  color: var(--blue);
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.table__wrapper {
+  overflow-y: scroll;
+  border-collapse: collapse;
+  height: 415px;
+}
+
+.table__number {
+  text-align: left;
+  padding-left: 5px;
+}
+
+.table__cellAction {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
+
+.btnEdit, .btnSave, .btnDelete, .btnCancel {
+  border: none;
+  color: black;
+  border-radius: 0.5em;
+  padding: 0.8em 1em;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btnEdit {
+  background-color: #FFF782;
+}
+
+.btnSave {
+  background-color: #C3FBD8;
+}
+
+.btnDelete {
+  background-color: #F26065;
+}
+
+.inputWhite {
+  box-sizing: border-box;
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 0.5em;
+  padding: 0.8em;
+  width: 100%;
+}
+.inputWhite:focus {
+  outline: none;
+}
+.inputWhite::-moz-placeholder {
+  color: blue;
+}
+.inputWhite::placeholder {
+  color: blue;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C6D8FF;
+  border-radius: 4px;
+}/*# sourceMappingURL=TableCityWeather.css.map */
