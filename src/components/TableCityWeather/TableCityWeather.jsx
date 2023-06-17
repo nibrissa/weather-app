@@ -6,11 +6,7 @@ const TableCityWeather = ({region,city}) => {
     const [selected, setSelected] = useState('')
     useEffect(()=>{
         if (city) {
-            regionsAndCities[city[0]].cities.map((el) => {
-                if (el.id == city) {
-                    setWeather(el.weather)
-                }
-            })
+            setWeather(regionsAndCities[city.split('.')[0]].cities[city].weather)
         } else if (region) {
             setWeather(regionsAndCities[region].weather)
         }

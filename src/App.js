@@ -7,6 +7,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
 import firebase from "firebase/compat/app";
 import "firebase/firestore";
+import regionsAndCities from './state/regionsAndCities';
 
 function App() {
   const firebaseConfig = {
@@ -35,6 +36,21 @@ function App() {
     if (regions.length && cities.length) {
       console.log(regions)
       console.log(cities)
+      regions.map(region => {
+        if (regionsAndCities[region.region].weather) {
+          regionsAndCities[region.region].weather.push(region)
+        } else {
+          regionsAndCities[region.region].weather = [region]
+        }
+      })
+      cities.map(city => {
+        console.log(city.city)
+        if (regionsAndCities[city.city.split('.')[0]].weather) {
+          regionsAndCities[city.city.split('.')[0]].weather.push(city)
+        } else {
+          regionsAndCities[city.city.split('.')[0]].weather = [city]
+        }
+      })
     }
   },[regions, cities])
 
