@@ -1,15 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import './TableCityWeather.sass'
+import regionsAndCities from '../../state/regionsAndCities';
 
-const TableCityWeather = ({city}) => {
-    const [weather, setWeather] = useState([
-        {temperature: "10", windDirection: "N", windSpeed: "5", pressure: "1013"},
-        {temperature: "15", windDirection: "E", windSpeed: "3", pressure: "1011"},
-        {temperature: "20", windDirection: "S", windSpeed: "4", pressure: "1012"},
-        {temperature: "20", windDirection: "S", windSpeed: "4", pressure: "1012"},
-        {temperature: "20", windDirection: "S", windSpeed: "4", pressure: "1012"},
-        {temperature: "20", windDirection: "S", windSpeed: "4", pressure: "1012"},
-    ]);
+const TableCityWeather = ({region,city}) => {
+    const [selected, setSelected] = useState('')
+    useEffect(()=>{
+        if (city) {
+            regionsAndCities[city[0]].cities.map((el) => {
+                if (el.id == city) {
+                    setWeather(el.weather)
+                }
+            })
+        } else if (region) {
+            setWeather(regionsAndCities[region].weather)
+        }
+    },[region, city])
+    const [weather, setWeather] = useState([]);
     const [editMode, setEditMode] = useState(false);
     const [editIndex, setEditIndex] = useState(null);
     const [editedData, setEditedData] = useState(null);
@@ -44,7 +50,7 @@ const TableCityWeather = ({city}) => {
 
     return (
         <div>
-            <h3 className="leaders__header">Погода в ..............</h3>
+            {/* <h3 className="leaders__header">Погода в ..............</h3> */}
 
             <div className="table__wrapper">
                 <table className="table" style={{ borderSpacing: '15px' }}>
@@ -55,6 +61,7 @@ const TableCityWeather = ({city}) => {
                         <th className="table__head">Направление ветра</th>
                         <th className="table__head">Скорость ветра</th>
                         <th className="table__head">Атмосферное давление</th>
+                        <th className="table__head">Дата</th>
                         <th className="table__head">Действия</th>
                     </tr>
                     </thead>
@@ -72,10 +79,11 @@ const TableCityWeather = ({city}) => {
                                 </>
                             ) : (
                                 <>
-                                    <td className='table__cell'>{data.temperature}</td>
-                                    <td className='table__cell'>{data.windDirection}</td>
-                                    <td className='table__cell'>{data.windSpeed}</td>
+                                    <td className='table__cell'>{data.t}</td>
+                                    <td className='table__cell'>{data.wind}</td>
+                                    <td className='table__cell'>{data.speed}</td>
                                     <td className='table__cell'>{data.pressure}</td>
+                                    <td className='table__cell'>{data.date}</td>
                                 </>
                             )}
                             <td className='table__cellAction'>

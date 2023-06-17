@@ -2,20 +2,59 @@ import React, {useState, useEffect} from 'react';
 import data from './../../state/regionsAndCities';
 import TableCityWeather from "../TableCityWeather/TableCityWeather";
 import './RegionCitySelector.sass'
-const RegionCitySelector = ({add}) => {
-    const [regions] = useState(data.regions);
-    const [selectedRegion, setSelectedRegion] = useState("");
+const RegionCitySelector = ({
+        selectedCity,
+        selectedRegion,
+        setSelectedCity,
+        setSelectedRegion,
+        addRegions,
+        addCities
+    }) => {
+    const [modal, setModal] = useState(false)
+    const [regions] = useState(data);
     const [cities, setCities] = useState([]);
-    const [selectedCity, setSelectedCity] = useState("");
-
+    const [pressure, setPressure] = useState([]);
+    const [regionsAdd] = useState(data);
+    const [selectedRegionAdd, setSelectedRegionAdd] = useState("");
+    const [citiesAdd, setCitiesAdd] = useState([]);
+    const [selectedCityAdd, setSelectedCityAdd] = useState("");
+    const [t, setT] = useState('')
+    const [wind, setWind] = useState('')
+    const [speed, setSpeed] = useState('')
+    const [date, setDate] = useState('')
     useEffect(() => {
         if (selectedRegion) {
-            setCities(regions.find(region => region.id.toString() === selectedRegion).cities);
+            setCities(regions[Object.keys(regions).find(name =>(console.log(name),regions[name].id.toString()) === selectedRegion)].cities);
         } else {
             setCities([]);
         }
-    }, [selectedRegion, regions]);
-
+        if (selectedRegionAdd) {
+            setCitiesAdd(regions[Object.keys(regionsAdd).find(name => regionsAdd[name].id.toString() === selectedRegionAdd)].cities);
+        } else {
+            setCitiesAdd([]);
+        }
+    }, [selectedRegion, regions, selectedRegionAdd, regionsAdd]);
+    const addToDB = () => {
+        if (selectedCityAdd) {
+            addCities({
+                city: selectedCityAdd,
+                t:t,
+                wind:wind,
+                speed:speed,
+                pressure:pressure,
+                date:date
+            })
+        } else {
+            addRegions({
+                region: selectedRegionAdd,
+                t:t,
+                wind:wind,
+                speed:speed,
+                pressure:pressure,
+                date:date
+            })
+        }
+    }
     return (
         <div className='selectorWrapper'>
             <div></div>
@@ -23,8 +62,8 @@ const RegionCitySelector = ({add}) => {
                 Выберите регион:
                 <select className='selector' value={selectedRegion} onChange={e => setSelectedRegion(e.target.value)}>
                     <option value="">--Пожалуйста выберите регион--</option>
-                    {regions.map(region =>
-                        <option key={region.id} value={region.id}>{region.name}</option>
+                    {Object.keys(regions).map(name =>
+                        <option key={regions[name].id} value={regions[name].id}>{regions[name].name}</option>
                     )}
                 </select>
             </label>
@@ -40,15 +79,39 @@ const RegionCitySelector = ({add}) => {
                 </label>
             )}
 
-<div id="myModal" class="modal">
-
+<div id="myModal" class={`modal ${modal?'show':'hide'}`}>
   <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
+    <span class="close" onClick={()=>setModal(!modal)}>&times;</span>
+    <label>
+                Выберите регион:
+                <select className='selector' value={selectedRegionAdd} onChange={e => setSelectedRegionAdd(e.target.value)}>
+                    <option value="">--Пожалуйста выберите регион--</option>
+                    {Object.keys(regionsAdd).map(name =>
+                        <option key={regionsAdd[name].id} value={regionsAdd[name].id}>{regionsAdd[name].name}</option>
+                    )}
+                </select>
+            </label>
+            {selectedRegionAdd && (
+                <label>
+                    Выберите город:
+                    <select className='selector' value={selectedCityAdd} onChange={e => setSelectedCityAdd(e.target.value)}>
+                        <option value="">--Пожалуйста выберите город--</option>
+                        {citiesAdd.map(city =>
+                            <option key={city.id} value={city.id}>{city.name}</option>
+                        )}
+                    </select>
+                </label>
+            )}
+    <input placeholder='температура' value={t} onChange={e=>setT(e.target.value)}/>
+    <input placeholder='направление ветра' value={wind} onChange={e=>setWind(e.target.value)}/>
+    <input placeholder='скорость ветра' value={speed} onChange={e=>setSpeed(e.target.value)}/>
+    <input placeholder='давление' value={pressure} onChange={e=>setPressure(e.target.value)}/>
+    <input placeholder='дата' value={date} type='date' onChange={e=>setDate(e.target.value)}/>
+    <button onClick={addToDB}>Добавить запись</button>
   </div>
   </div>
             {selectedCity && <TableCityWeather city={selectedCity}/>}
-    <button id="myBtn">Open Modal</button>
+    <button onClick={()=>setModal(!modal)}>Open Modal</button>
         </div>
     );
 };
