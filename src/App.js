@@ -4,10 +4,11 @@ import RegionCitySelector from "./components/RegionCitySelector/RegionCitySelect
 import Layout from "./components/layout/Layout";
 import TableCityWeather from "./components/TableCityWeather/TableCityWeather";
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
 import firebase from "firebase/compat/app";
 import "firebase/firestore";
 import regionsAndCities from './state/regionsAndCities';
+import { doc, deleteDoc } from "firebase/firestore";
 
 function App() {
   const firebaseConfig = {
@@ -58,6 +59,12 @@ function App() {
     }
   },[regions, cities])
 
+  async function handleDelete(id) {
+    console.log(id)
+    await deleteDoc(doc(db, "regions", id));
+    await deleteDoc(doc(db, "cities", id));
+  }
+
   async function addCities(data) {
     console.log(data)
     await addDoc(collection(db, "cities"), {
@@ -73,9 +80,14 @@ function App() {
   async function getCities(db) {
     const citiesCol = collection(db, 'cities');
     const citySnapshot = await getDocs(citiesCol);
-    setCities(citySnapshot.docs.map(doc => doc.data()));
+    console.log(citySnapshot.docs.map(doc => doc.id));
+    setCities(citySnapshot.docs.map(doc => {
+      const result = doc.data()
+      result.id = doc.id
+      return result
+    }));
   }
-  
+
   async function addRegions(data) {
     await addDoc(collection(db, "regions"), {
       region:data.region,
@@ -86,25 +98,30 @@ function App() {
       date:data.date,
     });
   }
-  
+
   async function getRegions(db) {
     const regionsCol = collection(db, 'regions');
     const regionSnapshot = await getDocs(regionsCol);
-    setRegions(regionSnapshot.docs.map(doc => doc.data()))   
+    setRegions(regionSnapshot.docs.map(doc => {
+      const result = doc.data()
+      result.id = doc.id
+      return result
+    }))
   }
 
- 
+
   return (
     <div className="App">
         <Layout>
-            <RegionCitySelector 
+            <RegionCitySelector
               selectedCity={selectedCity}
               selectedRegion={selectedRegion}
               setSelectedCity={setSelectedCity}
               setSelectedRegion={setSelectedRegion}
               addRegions={addRegions}
               addCities={addCities} />
-            <TableCityWeather 
+            <TableCityWeather
+                handleDelete={handleDelete}
               region={selectedRegion}
               city={selectedCity} />
         </Layout>

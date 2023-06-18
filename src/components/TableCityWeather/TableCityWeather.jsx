@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import './TableCityWeather.sass'
 import regionsAndCities from '../../state/regionsAndCities';
 
-const TableCityWeather = ({region,city}) => {
+const TableCityWeather = ({region,city,handleDelete}) => {
     const [selected, setSelected] = useState('')
     useEffect(()=>{
         if (city) {
@@ -30,14 +30,15 @@ const TableCityWeather = ({region,city}) => {
         setEditIndex(null);
     };
 
-    const handleDelete = (index) => {
-        setWeather(prevWeather => prevWeather.filter((item, i) => i !== index));
-        if(editMode && index === editIndex) {
-            setEditMode(false);
-            setEditedData(null);
-            setEditIndex(null);
-        }
-    };
+    // const handleDelete = (index) => {
+    //     console.log(index)
+    //     setWeather(prevWeather => prevWeather.filter((item, i) => i !== index));
+    //     if(editMode && index === editIndex) {
+    //         setEditMode(false);
+    //         setEditedData(null);
+    //         setEditIndex(null);
+    //     }
+    // };
 
     const handleCancel = () => { // функция для обработки события отмены
         setEditMode(false);
@@ -93,7 +94,7 @@ const TableCityWeather = ({region,city}) => {
                                 ) : (
                                     <>
                                         <button onClick={() => handleEdit(index)} className="btnEdit">Редактировать</button>
-                                        <button onClick={() => handleDelete(index)} className="btnDelete">Удалить</button>
+                                        <button onClick={() => handleDelete(data.id)} className="btnDelete">Удалить</button>
                                     </>
                                 )}
                             </td>
