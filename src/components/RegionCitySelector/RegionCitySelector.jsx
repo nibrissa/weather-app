@@ -61,7 +61,7 @@ const RegionCitySelector = ({
             <label>
                 Выберите регион:
                 <select className='selector' value={selectedRegion} onChange={e => setSelectedRegion(e.target.value)}>
-                    <option value="">--Пожалуйста выберите регион--</option>
+                    <option value="">--регион--</option>
                     {Object.keys(regions).map(name =>
                         <option key={regions[name].id} value={regions[name].id}>{regions[name].name}</option>
                     )}
@@ -71,7 +71,7 @@ const RegionCitySelector = ({
                 <label>
                     Выберите город:
                     <select className='selector' value={selectedCity} onChange={e => setSelectedCity(e.target.value)}>
-                        <option value="">--Пожалуйста выберите город--</option>
+                        <option value="">--город--</option>
                         {Object.keys(cities).map(city =>
                             <option key={cities[city].id} value={cities[city].id}>{cities[city].name}</option>
                         )}
@@ -96,8 +96,8 @@ const RegionCitySelector = ({
                     Выберите город:
                     <select className='selector' value={selectedCityAdd} onChange={e => setSelectedCityAdd(e.target.value)}>
                         <option value="">--Пожалуйста выберите город--</option>
-                        {citiesAdd.map(city =>
-                            <option key={city.id} value={city.id}>{city.name}</option>
+                        {Object.keys(citiesAdd).map(city =>
+                            <option key={citiesAdd[city].id} value={citiesAdd[city].id}>{citiesAdd[city].name}</option>
                         )}
                     </select>
                 </label>
@@ -107,11 +107,11 @@ const RegionCitySelector = ({
     <input placeholder='скорость ветра' value={speed} onChange={e=>setSpeed(e.target.value)}/>
     <input placeholder='давление' value={pressure} onChange={e=>setPressure(e.target.value)}/>
     <input placeholder='дата' value={date} type='date' onChange={e=>setDate(e.target.value)}/>
-    <button onClick={addToDB}>Добавить запись</button>
+    <button onClick={addToDB} className="btnNew">Добавить запись</button>
   </div>
   </div>
             {selectedCity && <TableCityWeather city={selectedCity}/>}
-    <button onClick={()=>setModal(!modal)}>Open Modal</button>
+    <button onClick={()=>setModal(!modal)} className="btnNew">Добавить запись</button>
         </div>
     );
 };

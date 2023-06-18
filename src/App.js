@@ -8,7 +8,7 @@ import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
 import firebase from "firebase/compat/app";
 import "firebase/firestore";
 import regionsAndCities from './state/regionsAndCities';
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 function App() {
   const firebaseConfig = {
@@ -59,10 +59,32 @@ function App() {
     }
   },[regions, cities])
 
+  async function update (data) {
+    try {
+    await updateDoc(doc(db, "regions", data.id), {
+      t:data.t,
+      wind:data.wind,
+      speed:data.speed,
+      pressure:data.pressure
+    }).then(() => window.location.reload());} catch {
+      console.log('error')
+    }
+    try{
+    await updateDoc(doc(db, "cities",data.id), {
+      t:data.t,
+      wind:data.wind,
+      speed:data.speed,
+      pressure:data.pressure
+    });
+    } catch {
+      console.log('error')
+    }
+  }
   async function handleDelete(id) {
     console.log(id)
     await deleteDoc(doc(db, "regions", id));
     await deleteDoc(doc(db, "cities", id));
+    window.location.reload()
   }
 
   async function addCities(data) {
@@ -74,7 +96,7 @@ function App() {
       speed:data.speed,
       pressure:data.pressure,
       date:data.date,
-    });
+    }).then(()=>window.location.reload());
   }
 
   async function getCities(db) {
@@ -96,7 +118,7 @@ function App() {
       speed:data.speed,
       pressure:data.pressure,
       date:data.date,
-    });
+    }).then(()=>window.location.reload())
   }
 
   async function getRegions(db) {
@@ -121,6 +143,7 @@ function App() {
               addRegions={addRegions}
               addCities={addCities} />
             <TableCityWeather
+                update={update}
                 handleDelete={handleDelete}
               region={selectedRegion}
               city={selectedCity} />

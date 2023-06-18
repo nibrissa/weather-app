@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import './TableCityWeather.sass'
 import regionsAndCities from '../../state/regionsAndCities';
 
-const TableCityWeather = ({region,city,handleDelete}) => {
+const TableCityWeather = ({region,city,handleDelete, update}) => {
     const [selected, setSelected] = useState('')
     useEffect(()=>{
         if (city) {
@@ -16,8 +16,7 @@ const TableCityWeather = ({region,city,handleDelete}) => {
     const [editMode, setEditMode] = useState(false);
     const [editIndex, setEditIndex] = useState(null);
     const [editedData, setEditedData] = useState(null);
-
-    const handleEdit = (index) => {
+      const handleEdit = (index) => {
         setEditMode(true);
         setEditIndex(index);
         setEditedData({...weather[index]});
@@ -71,10 +70,11 @@ const TableCityWeather = ({region,city,handleDelete}) => {
                             <td >{index + 1}</td>
                             {editMode && editIndex === index ? (
                                 <>
-                                    <td ><input className='inputWhite' type='text' value={editedData.temperature} onChange={(e) => setEditedData({...editedData, temperature: e.target.value})} /></td>
-                                    <td ><input className='inputWhite' type='text' value={editedData.windDirection} onChange={(e) => setEditedData({...editedData, windDirection: e.target.value})} /></td>
-                                    <td ><input className='inputWhite' type='text' value={editedData.windSpeed} onChange={(e) => setEditedData({...editedData, windSpeed: e.target.value})} /></td>
+                                    <td ><input className='inputWhite' type='text' value={editedData.t} onChange={(e) => setEditedData({...editedData, t: e.target.value})} /></td>
+                                    <td ><input className='inputWhite' type='text' value={editedData.wind} onChange={(e) => setEditedData({...editedData, wind: e.target.value})} /></td>
+                                    <td ><input className='inputWhite' type='text' value={editedData.speed} onChange={(e) => setEditedData({...editedData, speed: e.target.value})} /></td>
                                     <td ><input className='inputWhite' type='text' value={editedData.pressure} onChange={(e) => setEditedData({...editedData, pressure: e.target.value})} /></td>
+                                    <td ><input className='inputWhite' type='date' value={editedData.date} onChange={(e) => setEditedData({...editedData, date: e.target.value})} /></td>
                                 </>
                             ) : (
                                 <>
@@ -88,7 +88,7 @@ const TableCityWeather = ({region,city,handleDelete}) => {
                             <td className='table__cellAction'>
                                 {editMode && editIndex === index ? (
                                     <>
-                                        <button onClick={handleSave} className="btnSave">Сохранить</button>
+                                        <button onClick={()=>update(editedData)} className="btnSave">Сохранить</button>
                                         <button onClick={handleCancel} className="btnCancel">Отменить</button>
                                     </>
                                 ) : (
