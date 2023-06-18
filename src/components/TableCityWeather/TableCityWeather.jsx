@@ -66,7 +66,7 @@ const TableCityWeather = ({region,city,handleDelete}) => {
 
                     <tbody>
 
-                    {weather.map((data, index) => (
+                    {weather&&weather.map((data, index) => (
                         <tr key={index} className="table_tr">
                             <td >{index + 1}</td>
                             {editMode && editIndex === index ? (
