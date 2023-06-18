@@ -78,10 +78,10 @@ const TableCityWeather = ({region,city,handleDelete, update}) => {
                                 </>
                             ) : (
                                 <>
-                                    <td className='table__cell'>{data.t}</td>
+                                    <td className='table__cell'>{data.t}°C</td>
                                     <td className='table__cell'>{data.wind}</td>
-                                    <td className='table__cell'>{data.speed}</td>
-                                    <td className='table__cell'>{data.pressure}</td>
+                                    <td className='table__cell'>{data.speed} м/с</td>
+                                    <td className='table__cell'>{data.pressure} мм рт. ст.</td>
                                     <td className='table__cell'>{data.date}</td>
                                 </>
                             )}
