@@ -60,7 +60,8 @@ const RegionCitySelector = ({
             <div></div>
             <label>
                 Выберите регион:
-                <select className='selector' value={selectedRegion} onChange={e => setSelectedRegion(e.target.value)}>
+                <select className='selector' value={selectedRegion} onChange={e => e.target.value === '' ? (window.location.reload(),setSelectedCity('')) :
+                    setSelectedRegion(e.target.value)}>
                     <option value="">--регион--</option>
                     {Object.keys(regions).map(name =>
                         <option key={regions[name].id} value={regions[name].id}>{regions[name].name}</option>
@@ -110,7 +111,7 @@ const RegionCitySelector = ({
     <button onClick={addToDB} className="btnNew">Добавить запись</button>
   </div>
   </div>
-            {selectedCity && <TableCityWeather city={selectedCity}/>}
+            {/*selectedCity && <TableCityWeather city={selectedCity}/>*/}
     <button onClick={()=>setModal(!modal)} className="btnNew">Добавить запись</button>
         </div>
     );
