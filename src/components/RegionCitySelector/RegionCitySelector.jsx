@@ -73,7 +73,7 @@ const RegionCitySelector = ({
                     <select className='selector' value={selectedCity} onChange={e => setSelectedCity(e.target.value)}>
                         <option value="">--Пожалуйста выберите город--</option>
                         {Object.keys(cities).map(city =>
-                            <option key={cities[city].id} value={cities[city].city.id}>{cities[city].name}</option>
+                            <option key={cities[city].id} value={cities[city].id}>{cities[city].name}</option>
                         )}
                     </select>
                 </label>

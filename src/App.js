@@ -45,12 +45,16 @@ function App() {
       })
       cities.map(city => {
         console.log(city.city)
-        if (regionsAndCities[city.city.split('.')[0]].weather) {
-          regionsAndCities[city.city.split('.')[0]].weather.push(city)
+        console.log(city.city.split('.')[0])
+        console.log(regionsAndCities[city.city.split('.')[0]])
+        console.log(regionsAndCities[city.city.split('.')[0]].cities[city])
+        if (regionsAndCities[city.city.split('.')[0]].cities[city.city].weather) {
+          regionsAndCities[city.city.split('.')[0]].cities[city.city].weather.push(city)
         } else {
-          regionsAndCities[city.city.split('.')[0]].weather = [city]
+          regionsAndCities[city.city.split('.')[0]].cities[city.city].weather = [city]
         }
       })
+      console.log(regionsAndCities)
     }
   },[regions, cities])
 

@@ -6,6 +6,7 @@ const TableCityWeather = ({region,city}) => {
     const [selected, setSelected] = useState('')
     useEffect(()=>{
         if (city) {
+            console.log(regionsAndCities[city.split('.')[0]].cities[city].weather)
             setWeather(regionsAndCities[city.split('.')[0]].cities[city].weather)
         } else if (region) {
             setWeather(regionsAndCities[region].weather)
@@ -23,7 +24,7 @@ const TableCityWeather = ({region,city}) => {
     };
 
     const handleSave = () => {
-        setWeather(prevWeather => prevWeather.map((item, index) => index === editIndex ? editedData : item));
+        // setWeather(prevWeather => prevWeather.map((item, index) => index === editIndex ? editedData : item));
         setEditMode(false);
         setEditedData(null);
         setEditIndex(null);
@@ -63,6 +64,7 @@ const TableCityWeather = ({region,city}) => {
                     </thead>
 
                     <tbody>
+
                     {weather.map((data, index) => (
                         <tr key={index} className="table_tr">
                             <td >{index + 1}</td>
