@@ -86,7 +86,7 @@ const RegionCitySelector = ({
     <label>
                 Выберите регион:
                 <select className='selector' value={selectedRegionAdd} onChange={e => setSelectedRegionAdd(e.target.value)}>
-                    <option value="">--Пожалуйста выберите регион--</option>
+                    <option value="">--Регион--</option>
                     {Object.keys(regionsAdd).map(name =>
                         <option key={regionsAdd[name].id} value={regionsAdd[name].id}>{regionsAdd[name].name}</option>
                     )}
@@ -96,18 +96,18 @@ const RegionCitySelector = ({
                 <label>
                     Выберите город:
                     <select className='selector' value={selectedCityAdd} onChange={e => setSelectedCityAdd(e.target.value)}>
-                        <option value="">--Пожалуйста выберите город--</option>
+                        <option value="">--Город--</option>
                         {Object.keys(citiesAdd).map(city =>
                             <option key={citiesAdd[city].id} value={citiesAdd[city].id}>{citiesAdd[city].name}</option>
                         )}
                     </select>
                 </label>
             )}
-    <input placeholder='температура' value={t} onChange={e=>setT(e.target.value)}/>
-    <input placeholder='направление ветра' value={wind} onChange={e=>setWind(e.target.value)}/>
-    <input placeholder='скорость ветра' value={speed} onChange={e=>setSpeed(e.target.value)}/>
-    <input placeholder='давление' value={pressure} onChange={e=>setPressure(e.target.value)}/>
-    <input placeholder='дата' value={date} type='date' onChange={e=>setDate(e.target.value)}/>
+    <input className="inputWhite" placeholder='температура' value={t} onChange={e=>setT(e.target.value)}/>
+    <input className="inputWhite" placeholder='направление ветра' value={wind} onChange={e=>setWind(e.target.value)}/>
+    <input className="inputWhite" placeholder='скорость ветра' value={speed} onChange={e=>setSpeed(e.target.value)}/>
+    <input className="inputWhite" placeholder='давление' value={pressure} onChange={e=>setPressure(e.target.value)}/>
+    <input className="inputWhite" placeholder='дата' value={date} type='date' onChange={e=>setDate(e.target.value)}/>
     <button onClick={addToDB} className="btnNew">Добавить запись</button>
   </div>
   </div>
